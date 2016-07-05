@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:id="@+id/tabs_title"
+            android:textSize="@dimen/normal_text_size2"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorPrimaryNegative"
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/switch_container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/length_title"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/large_text_size"
+
+            android:text="6"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:columnCount="6"
+            android:id="@+id/length_indexes_grid"
+
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/IndexesItem"
+                android:layout_columnSpan="6"
+                android:text="Лиственница">
+            </TextView>
+
+            <TextView
+                style="@style/IndexesItem"
+                android:text="12">
+            </TextView>
+            <TextView
+                style="@style/IndexesItem"
+                android:text="12">
+            </TextView>
+            <TextView
+                style="@style/IndexesItem"
+                android:text="12">
+            </TextView>
+            <TextView
+                style="@style/IndexesItem"
+                android:text="12">
+            </TextView>
+            <TextView
+                style="@style/IndexesItem"
+                android:text="12">
+            </TextView>
+            <TextView
+                style="@style/IndexesItem"
+                android:text="12">
+            </TextView>
+
+
+        </GridLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
