@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "967595924975",
+    "project_id": "firebase-stom3-app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967595924975:android:9f445978c709dca8",
+        "android_client_info": {
+          "package_name": "com.stom3.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfLCwe9fF-xJSTXLKF5wY5e7EpC9aM_HQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

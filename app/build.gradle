@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdkVersion 24
@@ -44,3 +46,10 @@ dependencies {
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.0'
 }
+
+/*
+Server API Key help
+AIzaSyB-yoVY38vBcGWRs_VrzyxMLwe2fQE4Pd0
+Sender ID help
+967595924975
+* */

@@ -109,7 +109,7 @@ public class User {
         RestClient.getInstance().get("user_check_exist", params, type, responseHandler);
     }
 
-    public static void uuidConnect(String uuid, final ResponseCallback responseHandler) {
+    public static void uuidConnect(String uuid, final ResponseCallback<Response> responseHandler) {
         InitialRequestParams params = new InitialRequestParams();
         params.add("token", uuid);
         Type type = new TypeToken<Response>() {}.getType();

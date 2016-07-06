@@ -27,22 +27,19 @@ public class SplashActivity extends BaseActivity {
         worker.schedule(new Runnable() {
             @Override
             public void run() {
-                if (PreferencesHelper.getInstance().isAuth()) {
-                    Indexes.getIndexes(new ResponseCallback<HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>>>() {
-                        @Override
-                        public void onResponse(HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>> response) {
-                            PreferencesHelper.getInstance().saveIndexes(new Gson().toJson(response));
-                            openMain();
-                        }
+                Indexes.getIndexes(new ResponseCallback<HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>>>() {
+                    @Override
+                    public void onResponse(HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>> response) {
+                        PreferencesHelper.getInstance().saveIndexes(new Gson().toJson(response));
+                        openMain();
+                    }
 
-                        @Override
-                        public void onError(String error) {
-                            openMain();
-                        }
-                    });
-                } else {
-                    openLogin();
-                }
+                    @Override
+                    public void onError(String error) {
+                        openMain();
+                    }
+                });
+
             }
         }, 2, TimeUnit.SECONDS);
     }
