@@ -8,7 +8,7 @@
     >
 
     <TextView
-        style="@style/IndexesTitle"
+        style="@style/IndexesTitleRaw"
         android:id="@+id/index_title"
         >
     </TextView>

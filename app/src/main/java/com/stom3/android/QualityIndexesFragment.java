@@ -76,11 +76,22 @@ public class QualityIndexesFragment extends Fragment{
                 if(first) {
                     first = false;
                     List<String> sizesTitles = new LinkedList<>();
+                    boolean isNum = true;
                     for(Map.Entry<String, IndexValue> sizeIndexes : woodIndexes.getValue().entrySet()) {
+                        try {
+                            Float.parseFloat(sizeIndexes.getKey());
+                        } catch (NumberFormatException e) {
+                            isNum = false;
+                        }
                         sizesTitles.add(sizeIndexes.getKey());
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.item_title, R.id.index_title, sizesTitles);
+                    ArrayAdapter<String> adapter;
+                    if(isNum) {
+                        adapter = new ArrayAdapter<>(getActivity(), R.layout.item_title, R.id.index_title, sizesTitles);
+                    } else {
+                        adapter = new ArrayAdapter<>(getActivity(), R.layout.item_title_raw, R.id.index_title, sizesTitles);
+                    }
                     GridView indexesGrid = new GridView(getActivity());
                     indexesGrid.setNumColumns(woodIndexes.getValue().size());
                     indexesGrid.setAdapter(adapter);
