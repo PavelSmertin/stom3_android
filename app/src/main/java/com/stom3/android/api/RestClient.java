@@ -58,11 +58,15 @@ public class RestClient {
     public void setHeaderLogin(String login){
         client.addHeader(HEADER_AUTH_LOGIN, login);
         client.removeHeader(HEADER_AUTH_TOKEN);
+        syncHttpClient.addHeader(HEADER_AUTH_LOGIN, login);
+        syncHttpClient.removeHeader(HEADER_AUTH_TOKEN);
     }
 
     public void setHeaders(String login, String token){
         client.addHeader(HEADER_AUTH_LOGIN, login);
         client.addHeader(HEADER_AUTH_TOKEN, token);
+        syncHttpClient.addHeader(HEADER_AUTH_LOGIN, login);
+        syncHttpClient.addHeader(HEADER_AUTH_TOKEN, token);
     }
 
     /**

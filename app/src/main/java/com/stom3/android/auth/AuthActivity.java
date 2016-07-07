@@ -51,7 +51,7 @@ public class AuthActivity extends BaseActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_auth) {
             return true;
         }
 
@@ -69,6 +69,7 @@ public class AuthActivity extends BaseActivity implements
 
     void next() {
         Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
