@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.stom3.android.api.response.WoodTypeIndexes;
+import com.stom3.android.api.response.IndexesWoodType;
 
 
 public class IndexesSwitchFragment extends Fragment {
     public static final String ARG_WOODTYPE_INDEXES = "market_indexes";
 
-    private WoodTypeIndexes woodTypeIndexes;
+    private IndexesWoodType woodTypeIndexes;
 
 
 
@@ -23,7 +23,7 @@ public class IndexesSwitchFragment extends Fragment {
     }
 
 
-    public static IndexesSwitchFragment newInstance(WoodTypeIndexes indexes) {
+    public static IndexesSwitchFragment newInstance(IndexesWoodType indexes) {
         IndexesSwitchFragment f = new IndexesSwitchFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_WOODTYPE_INDEXES, indexes);
@@ -53,7 +53,7 @@ public class IndexesSwitchFragment extends Fragment {
 
         /*for(Map.Entry<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>> quality : woodTypeIndexes.getIndexes().entrySet()) {
 
-            QualityIndexesFragment qualityIndexesFragment = QualityIndexesFragment.newInstance(new QualityIndexes(quality.getKey(), quality.getValue()));
+            QualityIndexesFragment qualityIndexesFragment = QualityIndexesFragment.newInstance(new IndexesQuality(quality.getKey(), quality.getValue()));
             fragmentManager
                     .beginTransaction()
                     .add(R.id.indexes_container, qualityIndexesFragment)
@@ -63,7 +63,7 @@ public class IndexesSwitchFragment extends Fragment {
         /*ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
 
         for(Map.Entry<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>> quality : woodTypeIndexes.getIndexes().entrySet()) {
-            adapter.addFragment(QualityIndexesFragment.newInstance(new QualityIndexes(quality.getKey(), quality.getValue())), quality.getKey());
+            adapter.addFragment(QualityIndexesFragment.newInstance(new IndexesQuality(quality.getKey(), quality.getValue())), quality.getKey());
         }
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.indexes_block_pager);

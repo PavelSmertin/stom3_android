@@ -6,11 +6,11 @@ import android.os.Bundle;
 import com.google.gson.Gson;
 import com.stom3.android.api.Indexes;
 import com.stom3.android.api.ResponseCallback;
-import com.stom3.android.api.response.IndexValue;
+import com.stom3.android.api.response.IndexesMarket;
 import com.stom3.android.auth.AuthActivity;
 import com.stom3.android.storage.PreferencesHelper;
 
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,13 +23,12 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-
         worker.schedule(new Runnable() {
             @Override
             public void run() {
-                Indexes.getIndexes(new ResponseCallback<HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>>>() {
+                Indexes.getIndexes(new ResponseCallback<LinkedList<IndexesMarket>>() {
                     @Override
-                    public void onResponse(HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>> response) {
+                    public void onResponse(LinkedList<IndexesMarket> response) {
                         PreferencesHelper.getInstance().saveIndexes(new Gson().toJson(response));
                         openMain();
                     }

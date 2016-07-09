@@ -11,21 +11,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.stom3.android.api.response.IndexValue;
-import com.stom3.android.api.response.QualityIndexes;
+import com.stom3.android.api.response.IndexesLength;
+import com.stom3.android.api.response.IndexesQuality;
+import com.stom3.android.api.response.IndexesWoods;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 
 public class QualityIndexesFragment extends Fragment{
 
     public static final String ARG_QUALITY_INDEXES = "quality_indexes";
 
-    private QualityIndexes qualityIndexes;
+    private IndexesQuality qualityIndexes;
 
-    public static QualityIndexesFragment newInstance(QualityIndexes indexes) {
+    public static QualityIndexesFragment newInstance(IndexesQuality indexes) {
         QualityIndexesFragment f = new QualityIndexesFragment();
 
         // Supply index input as an argument.
@@ -54,22 +54,22 @@ public class QualityIndexesFragment extends Fragment{
 
         LinearLayout view =  (LinearLayout) inflater.inflate(R.layout.fragment_quality_indexes, container, false);
 
-        for(Map.Entry<String, HashMap<String, HashMap<String, IndexValue>>> lengthIndexes : qualityIndexes.getIndexes().entrySet()) {
+        for(IndexesLength lengthIndexes : qualityIndexes.getLengths()) {
             View cardView = inflater.inflate(R.layout.length_card, container, false);
             view.addView(cardView);
 
             TextView lengthName = (TextView) cardView.findViewById(R.id.length_title);
-            lengthName.setText(lengthIndexes.getKey() + " м");
+            lengthName.setText(lengthIndexes.getName() + " м");
 
             LinearLayout lengthContainer = (LinearLayout) cardView.findViewById(R.id.length_container);
 
             boolean first = true;
-            for(Map.Entry<String, HashMap<String, IndexValue>> woodIndexes : lengthIndexes.getValue().entrySet()) {
+            for(IndexesWoods woodIndexes : lengthIndexes.getWoods()) {
 
 
                 List<Integer> sizes = new LinkedList<>();
-                for(Map.Entry<String, IndexValue> sizeIndexes : woodIndexes.getValue().entrySet()) {
-                    sizes.add(sizeIndexes.getValue().getValue());
+                for(IndexValue sizeIndexes : woodIndexes.getValues()) {
+                    sizes.add(sizeIndexes.getValue());
 
                 }
 
@@ -77,13 +77,13 @@ public class QualityIndexesFragment extends Fragment{
                     first = false;
                     List<String> sizesTitles = new LinkedList<>();
                     boolean isNum = true;
-                    for(Map.Entry<String, IndexValue> sizeIndexes : woodIndexes.getValue().entrySet()) {
+                    for(IndexValue sizeIndexes : woodIndexes.getValues()) {
                         try {
-                            Float.parseFloat(sizeIndexes.getKey());
+                            Float.parseFloat(sizeIndexes.getSize());
                         } catch (NumberFormatException e) {
                             isNum = false;
                         }
-                        sizesTitles.add(sizeIndexes.getKey());
+                        sizesTitles.add(sizeIndexes.getSize());
                     }
 
                     ArrayAdapter<String> adapter;
@@ -93,18 +93,18 @@ public class QualityIndexesFragment extends Fragment{
                         adapter = new ArrayAdapter<>(getActivity(), R.layout.item_title_raw, R.id.index_title, sizesTitles);
                     }
                     GridView indexesGrid = new GridView(getActivity());
-                    indexesGrid.setNumColumns(woodIndexes.getValue().size());
+                    indexesGrid.setNumColumns(woodIndexes.getValues().size());
                     indexesGrid.setAdapter(adapter);
                     lengthContainer.addView(indexesGrid);
                 }
 
                 TextView woodName = new TextView(getActivity());
-                woodName.setText(woodIndexes.getKey());
+                woodName.setText(woodIndexes.getName());
                 lengthContainer.addView(woodName);
 
                 ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getActivity(), R.layout.item, R.id.index_value, sizes);
                 GridView indexesGrid = new GridView(getActivity());
-                indexesGrid.setNumColumns(woodIndexes.getValue().size());
+                indexesGrid.setNumColumns(woodIndexes.getValues().size());
                 indexesGrid.setAdapter(adapter);
                 lengthContainer.addView(indexesGrid);
             }

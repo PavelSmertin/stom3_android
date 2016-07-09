@@ -11,14 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.stom3.android.api.response.IndexValue;
-import com.stom3.android.api.response.MarketIndexes;
+import com.stom3.android.api.response.IndexesMarket;
 import com.stom3.android.auth.AuthActivity;
 import com.stom3.android.behavior.ScrollAwareFABBehavior;
 import com.stom3.android.storage.PreferencesHelper;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnOffsetChangedListener{
 
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnO
 
     private FloatingActionButton fabView;
 
-    private HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>> indexes;
+    private LinkedList<IndexesMarket> indexes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +85,8 @@ public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnO
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        for(Map.Entry<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>> market : indexes.entrySet()) {
-            adapter.addFragment(MarketIndexesFragment.newInstance(new MarketIndexes(market.getKey(), market.getValue())), market.getKey());
+        for(IndexesMarket market : indexes) {
+            adapter.addFragment(MarketIndexesFragment.newInstance(market), market.getName());
         }
 
         viewPager.setAdapter(adapter);

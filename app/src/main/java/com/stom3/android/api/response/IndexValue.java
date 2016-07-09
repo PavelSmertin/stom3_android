@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class IndexValue implements Parcelable{
 
+    @SerializedName("s")
+    private String size;
+
     @SerializedName("v")
     private int value;
 
@@ -15,6 +18,7 @@ public class IndexValue implements Parcelable{
     private Dinamic dinamic;
 
     public IndexValue(Parcel parcel) {
+        this.size = parcel.readString();
         this.value = parcel.readInt();
         this.dinamic = Dinamic.fromKey(parcel.readInt());
     }
@@ -26,6 +30,7 @@ public class IndexValue implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(size);
         parcel.writeInt(value);
         if(dinamic != null) {
             parcel.writeInt(dinamic.getKey());
@@ -43,6 +48,12 @@ public class IndexValue implements Parcelable{
             return new IndexValue[size];
         }
     };
+
+
+
+    public String getSize() {
+        return size;
+    }
 
     public int getValue() {
         return value;

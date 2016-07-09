@@ -9,23 +9,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.stom3.android.api.response.IndexValue;
-import com.stom3.android.api.response.MarketIndexes;
-import com.stom3.android.api.response.QualityIndexes;
+import com.stom3.android.api.response.IndexesMarket;
+import com.stom3.android.api.response.IndexesQuality;
+import com.stom3.android.api.response.IndexesWoodType;
 import com.stom3.android.view.CustomPager;
-
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class MarketIndexesFragment extends Fragment{
 
     public static final String ARG_MARKET_INDEXES = "market_indexes";
 
-    private MarketIndexes marketIndexes;
+    private IndexesMarket marketIndexes;
     private View view;
 
-    public static MarketIndexesFragment newInstance(MarketIndexes indexes) {
+    public static MarketIndexesFragment newInstance(IndexesMarket indexes) {
         MarketIndexesFragment f = new MarketIndexesFragment();
 
         // Supply index input as an argument.
@@ -58,14 +54,14 @@ public class MarketIndexesFragment extends Fragment{
         view =  inflater.inflate(R.layout.fragment_market_indexes, container, false);
         LinearLayout indexesContainer = (LinearLayout) view.findViewById(R.id.indexes_container);
 
-        for(Map.Entry<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>> woodTypeindexes : marketIndexes.getIndexes().entrySet()) {
+        for(IndexesWoodType woodTypeindexes : marketIndexes.getWoodTypes()) {
 
             View tabsLayout = inflater.inflate(R.layout.tabs, container, false);
             indexesContainer.addView(tabsLayout);
 
             TabLayout tabs = (TabLayout) tabsLayout.findViewById(R.id.tabs);
             TextView tabsTitle = (TextView) tabsLayout.findViewById(R.id.tabs_title);
-            tabsTitle.setText(woodTypeindexes.getKey());
+            tabsTitle.setText(woodTypeindexes.getName());
 
             CustomPager qualityViewPager = new CustomPager(getActivity());
             qualityViewPager.setId(View.generateViewId());
@@ -73,8 +69,8 @@ public class MarketIndexesFragment extends Fragment{
 
             ViewPagerAdapter qualityPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
-            for(Map.Entry<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>> qualityIndexes : woodTypeindexes.getValue().entrySet()) {
-                qualityPagerAdapter.addFragment(QualityIndexesFragment.newInstance(new QualityIndexes(qualityIndexes.getKey(), qualityIndexes.getValue())), qualityIndexes.getKey());
+            for(IndexesQuality qualityIndexes : woodTypeindexes.getQualities()) {
+                qualityPagerAdapter.addFragment(QualityIndexesFragment.newInstance(qualityIndexes), qualityIndexes.getName());
             }
 
             qualityViewPager.setAdapter(qualityPagerAdapter);

@@ -6,11 +6,11 @@ import android.content.SharedPreferences.Editor;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.stom3.android.api.response.IndexValue;
+import com.stom3.android.api.response.IndexesMarket;
 import com.stom3.android.auth.AuthActivity;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 public class PreferencesHelper {
 
@@ -108,11 +108,11 @@ public class PreferencesHelper {
         editor.apply();
     }
 
-    public HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>> getIndexes() {
+    public LinkedList<IndexesMarket> getIndexes() {
         Gson gson = new Gson();
         String indexes = sharedPreferences.getString(KEY_INDEXES, null);
 
-        Type type = new TypeToken<HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, HashMap<String, IndexValue>>>>>>>() {}.getType();
+        Type type = new TypeToken<LinkedList<IndexesMarket>>() {}.getType();
 
         return gson.fromJson(indexes, type);
     }
