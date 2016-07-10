@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Stom3</string>
 
-    <string name="title_login">login</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -32,12 +31,13 @@
     <string name="validator_phone_wrong">Wrong phone</string>
 
 
+    <string name="main_title">Цены на %s, $</string>
+    <string name="main_subtitle">Авторизуйтесь чтобы видеть актуальные цены</string>
+    <string name="title_login">Вход в аккаунт</string>
+
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
 
     <string name="support_phone_number">8 800 100-69-94</string>
-
-
-
 </resources>

@@ -55,13 +55,14 @@ public class MarketIndexesFragment extends Fragment{
         LinearLayout indexesContainer = (LinearLayout) view.findViewById(R.id.indexes_container);
 
         for(IndexesWoodType woodTypeindexes : marketIndexes.getWoodTypes()) {
-
             View tabsLayout = inflater.inflate(R.layout.tabs, container, false);
             indexesContainer.addView(tabsLayout);
+
 
             TabLayout tabs = (TabLayout) tabsLayout.findViewById(R.id.tabs);
             TextView tabsTitle = (TextView) tabsLayout.findViewById(R.id.tabs_title);
             tabsTitle.setText(woodTypeindexes.getName());
+
 
             CustomPager qualityViewPager = new CustomPager(getActivity());
             qualityViewPager.setId(View.generateViewId());
@@ -69,13 +70,15 @@ public class MarketIndexesFragment extends Fragment{
 
             ViewPagerAdapter qualityPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
-            for(IndexesQuality qualityIndexes : woodTypeindexes.getQualities()) {
+            for (IndexesQuality qualityIndexes : woodTypeindexes.getQualities()) {
                 qualityPagerAdapter.addFragment(QualityIndexesFragment.newInstance(qualityIndexes), qualityIndexes.getName());
             }
 
             qualityViewPager.setAdapter(qualityPagerAdapter);
 
-            tabs.setupWithViewPager(qualityViewPager);
+            if(woodTypeindexes.getQualities().size() > 1) {
+                tabs.setupWithViewPager(qualityViewPager);
+            }
         }
 
         return view;

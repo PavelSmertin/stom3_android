@@ -11,7 +11,8 @@
         android:orientation="vertical"
         android:id="@+id/length_container"
         android:paddingRight="10dp"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -21,7 +22,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textSize="@dimen/large_text_size"
-            android:paddingTop="5dp"
             android:paddingBottom="5dp"
             />
 

@@ -59,7 +59,11 @@ public class QualityIndexesFragment extends Fragment{
             view.addView(cardView);
 
             TextView lengthName = (TextView) cardView.findViewById(R.id.length_title);
-            lengthName.setText(lengthIndexes.getName() + " м");
+            if(!lengthIndexes.getName().equalsIgnoreCase("Не задано")) {
+                lengthName.setText(lengthIndexes.getName() + " м");
+            } else {
+                lengthName.setVisibility(View.GONE);
+            }
 
             LinearLayout lengthContainer = (LinearLayout) cardView.findViewById(R.id.length_container);
 

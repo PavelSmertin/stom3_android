@@ -10,13 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.stom3.android.api.response.IndexesMarket;
 import com.stom3.android.auth.AuthActivity;
 import com.stom3.android.behavior.ScrollAwareFABBehavior;
 import com.stom3.android.storage.PreferencesHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnOffsetChangedListener{
 
@@ -37,21 +41,43 @@ public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnO
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setTitle(null);
+
+        Calendar calendar = Calendar.getInstance();
+        if(!PreferencesHelper.getInstance().isAuth()) {
+            calendar.add(Calendar.MONTH, -1);
+            toolbar.setSubtitle(getString(R.string.main_subtitle));
+        }
+
+        SimpleDateFormat format1 = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
+        String date = format1.format(calendar.getTime());
+
+        getSupportActionBar().setTitle(String.format(getString(R.string.main_title), date));
+
+
+
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        appBarLayout.addOnOffsetChangedListener(this);
-
         fabView = (FloatingActionButton) findViewById(R.id.fab);
+
+        if (!PreferencesHelper.getInstance().isAuth()) {
+            fabView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+            appBarLayout.addOnOffsetChangedListener(this);
+        }
 
 
     }
