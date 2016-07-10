@@ -1,0 +1,73 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.stom3.android.postponeMessage.DiscussDialogFragment"
+    android:layout_gravity="center"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text_size"
+            android:id="@+id/discuss_title_label"
+            android:gravity="start"
+            android:textColor="@color/text_black2"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="24dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/discuss_message"
+            android:textColor="@color/text_gray"
+            android:gravity="start"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/border_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                style="@style/AppButton"
+                android:layout_weight="1"
+                android:id="@+id/button_negative"
+                android:textAllCaps="true"
+                android:text="@string/button_negative_discuss"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/border_gray"
+                android:visibility="gone"
+                />
+            <Button
+                style="@style/AppButton"
+                android:layout_weight="1"
+                android:id="@+id/button_positive"
+                android:textAllCaps="true"
+                android:visibility="gone"
+                android:text="@string/button_positive_discuss"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
+
+

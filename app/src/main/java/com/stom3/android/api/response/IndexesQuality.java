@@ -20,7 +20,9 @@ public class IndexesQuality implements Parcelable {
     public IndexesQuality(Parcel parcel) {
         this.id = parcel.readInt();
         this.name = parcel.readString();
-        parcel.readTypedList(lengths, IndexesLength.CREATOR);
+        if(lengths != null) {
+            parcel.readTypedList(lengths, IndexesLength.CREATOR);
+        }
     }
 
     @Override

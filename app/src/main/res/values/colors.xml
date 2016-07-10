@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#CCf6d200</color>
-    <color name="colorPrimaryDark">#FFf6d200</color>
+    <color name="colorPrimary">#f6d200</color>
+    <color name="colorPrimaryDark">#f6d200</color>
     <color name="textColorPrimary">#000000</color>
     <color name="textColorPrimaryNegative">#125688</color>
     <color name="windowBackground">#FFFFFF</color>
@@ -48,5 +48,8 @@
     <item name="quad_line_red" type="color">#FFe56f6f</item>
 
     <color name="loader_background">#22000000</color>
+
+
+    <color name="bg_transparent">#AA125688</color>
 
 </resources>

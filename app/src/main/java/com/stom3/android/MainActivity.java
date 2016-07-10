@@ -1,16 +1,22 @@
 package com.stom3.android;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.stom3.android.api.response.IndexesMarket;
 import com.stom3.android.auth.AuthActivity;
@@ -22,8 +28,9 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnOffsetChangedListener{
+public class MainActivity extends BaseActivity  implements AppBarLayout.OnOffsetChangedListener{
 
+    public static final int PERMISSION_REQUEST_CALL_PHONE = 100;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -43,6 +50,19 @@ public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnO
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        final TextView callSupport = (TextView) findViewById(R.id.call_support);
+        callSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + callSupport.getText()));
+                    startActivity(intent);
+                } else {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, PERMISSION_REQUEST_CALL_PHONE);
+                }
+            }
+        });
 
         Calendar calendar = Calendar.getInstance();
         if(!PreferencesHelper.getInstance().isAuth()) {
@@ -106,6 +126,50 @@ public class MainActivity extends AppCompatActivity  implements AppBarLayout.OnO
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+
+            case PERMISSION_REQUEST_CALL_PHONE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0) {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        // Do the stuff that requires permission
+                    } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        // Should we show an explanation?
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+                            showPostponeDiscuss(getString(R.string.permission_explain_call_phone), new BaseActivity.OnPostponeListener() {
+                                @Override
+                                public void onAccept() {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, PERMISSION_REQUEST_CALL_PHONE);
+                                }
+
+                                public void onCancel() {
+                                }
+                            });
+                        } else {
+                            showPostponeDiscuss(getString(R.string.permission_explain_denied_call_phone), new BaseActivity.OnPostponeListener() {
+                                @Override
+                                public void onAccept() {
+                                }
+
+                                public void onCancel() {
+
+                                }
+                            });
+                        }
+                    }
+                }
+                break;
+            }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+
+        }
+
+    }
 
 
     private void setupViewPager(ViewPager viewPager) {

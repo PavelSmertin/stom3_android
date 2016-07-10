@@ -40,4 +40,15 @@
     <string name="three">3</string>
 
     <string name="support_phone_number">8 800 100-69-94</string>
+
+
+    <string name="button_negative_discuss">Ок</string>
+    <string name="button_positive_discuss">Да</string>
+
+    <string name="permission_explain_title">Зачем нам разрешения</string>
+
+    <string name="permission_explain_call_phone">Для совершения вызова в поддержку, нам необходимо разрешение.</string>
+    <string name="permission_explain_denied_call_phone">Для совершения вызова в поддержку, нам необходимо разрешение.</string>
+
+
 </resources>
