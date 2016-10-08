@@ -6,12 +6,14 @@ import com.google.gson.reflect.TypeToken;
 import com.stom3.android.api.response.AuthResponse;
 import com.stom3.android.api.response.CheckLoginResponse;
 import com.stom3.android.api.response.Response;
+import com.stom3.android.storage.PreferencesHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 
 import cz.msebera.android.httpclient.entity.StringEntity;
 
@@ -109,11 +111,24 @@ public class User {
         RestClient.getInstance().get("user_check_exist", params, type, responseHandler);
     }
 
-    public static void uuidConnect(String uuid, final ResponseCallback<Response> responseHandler) {
+    public static void uuidConnect(String androidId, String uuid, final ResponseCallback<HashMap<String, String>> responseHandler) {
         InitialRequestParams params = new InitialRequestParams();
+        params.add("device_id", androidId);
         params.add("token", uuid);
-        Type type = new TypeToken<Response>() {}.getType();
+        Type type = new TypeToken<Response<HashMap<String, String>>>() {}.getType();
+
+        RestClient.getInstance().setHeaders(PreferencesHelper.getInstance().getLogin(), PreferencesHelper.getInstance().getAuthToken());
         RestClient.getInstance().post("uuid_connect", params, type, responseHandler);
+    }
+
+    public static void subscribeCategory(String categoryId,  final ResponseCallback<Response> responseHandler) {
+        InitialRequestParams params = new InitialRequestParams();
+        Type type = new TypeToken<Response>() {}.getType();
+
+        params.add("category_id", categoryId);
+
+        RestClient.getInstance().setHeaders(PreferencesHelper.getInstance().getLogin(), PreferencesHelper.getInstance().getAuthToken());
+        RestClient.getInstance().post("category_subscribe", params, type, responseHandler);
     }
 
 

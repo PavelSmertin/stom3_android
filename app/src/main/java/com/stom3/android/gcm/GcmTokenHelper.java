@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 public class GcmTokenHelper {
 
-    public String generateGcmToken(final Context context) throws ExecutionException, InterruptedException {
+    private String generateGcmToken(final Context context) throws ExecutionException, InterruptedException {
         AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {

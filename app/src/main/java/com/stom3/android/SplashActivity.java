@@ -8,6 +8,7 @@ import com.stom3.android.api.Indexes;
 import com.stom3.android.api.ResponseCallback;
 import com.stom3.android.api.response.IndexesMarket;
 import com.stom3.android.auth.AuthActivity;
+import com.stom3.android.gcm.RegistrationIntentService;
 import com.stom3.android.storage.PreferencesHelper;
 
 import java.util.LinkedList;
@@ -21,6 +22,12 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
+        // Save GCM token
+        if(PreferencesHelper.getInstance().getGcmToken() == null) {
+            startService(new Intent(SplashActivity.this, RegistrationIntentService.class));
+        }
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         worker.schedule(new Runnable() {

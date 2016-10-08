@@ -5,15 +5,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.stom3.android.api.ResponseCallback;
+import com.stom3.android.api.User;
 import com.stom3.android.api.response.IndexValue;
 import com.stom3.android.api.response.IndexesLength;
 import com.stom3.android.api.response.IndexesQuality;
 import com.stom3.android.api.response.IndexesWoods;
+import com.stom3.android.api.response.Response;
+import com.stom3.android.storage.PreferencesHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -71,10 +76,12 @@ public class QualityIndexesFragment extends Fragment{
             for(IndexesWoods woodIndexes : lengthIndexes.getWoods()) {
 
 
-                List<Integer> sizes = new LinkedList<>();
+                final List<Integer> sizes = new LinkedList<>();
+                final List<String> categories = new LinkedList<>();
+
                 for(IndexValue sizeIndexes : woodIndexes.getValues()) {
                     sizes.add(sizeIndexes.getValue());
-
+                    categories.add(sizeIndexes.getCategoryId());
                 }
 
                 if(first) {
@@ -111,6 +118,25 @@ public class QualityIndexesFragment extends Fragment{
                 indexesGrid.setNumColumns(woodIndexes.getValues().size());
                 indexesGrid.setAdapter(adapter);
                 lengthContainer.addView(indexesGrid);
+                indexesGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(PreferencesHelper.getInstance().isAuth()) {
+                            User.subscribeCategory(categories.get(i), new ResponseCallback<Response>() {
+                                @Override
+                                public void onResponse(Response response) {
+                                }
+
+                                @Override
+                                public void onError(String error) {
+
+                                }
+                            });
+                        }
+                    }
+
+
+                });
             }
         }
 

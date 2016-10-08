@@ -76,7 +76,6 @@ public class MainActivity extends BaseActivity  implements AppBarLayout.OnOffset
         getSupportActionBar().setTitle(String.format(getString(R.string.main_title), date));
 
 
-
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -98,8 +97,6 @@ public class MainActivity extends BaseActivity  implements AppBarLayout.OnOffset
             AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
             appBarLayout.addOnOffsetChangedListener(this);
         }
-
-
     }
 
     @Override

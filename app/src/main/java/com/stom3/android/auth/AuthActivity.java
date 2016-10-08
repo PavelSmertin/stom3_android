@@ -12,6 +12,7 @@ import com.stom3.android.MainActivity;
 import com.stom3.android.R;
 import com.stom3.android.api.RestClient;
 import com.stom3.android.api.response.AuthResponse;
+import com.stom3.android.gcm.RegistrationIntentService;
 import com.stom3.android.statistic.StatisticAdapter;
 import com.stom3.android.storage.PreferencesHelper;
 
@@ -116,10 +117,9 @@ public class AuthActivity extends BaseActivity implements
         PreferencesHelper.getInstance().setAuthToken(response.getToken());
         RestClient.getInstance().setHeaders(PreferencesHelper.getInstance().getLogin(), response.getToken());
 
-        //Intent intentGcm = new Intent(AuthActivity.this, GcmConnectService.class);
-        //startService(intentGcm);
+        startService(new Intent(AuthActivity.this, RegistrationIntentService.class));
 
-        //hideLoader();
+         //hideLoader();
         next();
     }
 
