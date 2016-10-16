@@ -65,10 +65,10 @@ public class MainActivity extends BaseActivity  implements AppBarLayout.OnOffset
         });
 
         Calendar calendar = Calendar.getInstance();
-        if(!PreferencesHelper.getInstance().isAuth()) {
-            calendar.add(Calendar.MONTH, -1);
-            toolbar.setSubtitle(getString(R.string.main_subtitle));
-        }
+//        if(!PreferencesHelper.getInstance().isAuth()) {
+//            calendar.add(Calendar.MONTH, -1);
+//            toolbar.setSubtitle(getString(R.string.main_subtitle));
+//        }
 
         SimpleDateFormat format1 = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
         String date = format1.format(calendar.getTime());
