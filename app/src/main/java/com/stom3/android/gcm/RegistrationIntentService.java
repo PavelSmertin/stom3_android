@@ -23,8 +23,6 @@ public class RegistrationIntentService extends IntentService {
         super(TAG);
     }
 
-    private ResponseCallback responseCallback;
-
     @Override
     protected void onHandleIntent(Intent intent) {
 

@@ -41,8 +41,9 @@
 
     <style name="IndexesItem" parent="TextAppearance.AppCompat.Medium">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:textColor">@color/text_black</item>
+        <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/large_text_size</item>
     </style>
 
@@ -53,8 +54,8 @@
         <item name="android:textSize">@dimen/small_text_size2</item>
         <item name="android:drawableLeft">@drawable/diameter</item>
         <item name="android:drawablePadding">2dp</item>
-        <item name="android:paddingLeft">2dp</item>
-        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:layout_marginRight">4dp</item>
         <item name="android:background">@color/bg_gray</item>
     </style>
 
@@ -63,8 +64,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/text_black</item>
         <item name="android:textSize">@dimen/small_text_size2</item>
-        <item name="android:paddingLeft">2dp</item>
-        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:layout_marginRight">4dp</item>
         <item name="android:background">@color/bg_gray</item>
     </style>
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Looper;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.MySSLSocketFactory;
@@ -15,7 +16,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.conn.scheme.Scheme;
@@ -133,27 +136,61 @@ public class RestClient {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                String exp = "code: " + statusCode + " throwable: " + (throwable != null ? throwable.getLocalizedMessage() : "null") + " errorResponse: " + (errorResponse != null ? errorResponse.toString() : "null");
                 //ErrorHelper.errorHandle(new Exception(exp));
-                methodCallback.onError(exp);
+                Gson gson = new Gson();
+                Type errorType = new TypeToken<Response<HashMap<String, List<String>>>>() {}.getType();
+                Response<HashMap<String, List<String>>> resp = gson.fromJson(errorResponse.toString(), errorType);
+
+                String error = resp.getInfo();
+                if (resp.getData() != null ) {
+                    error = displayErrorMessage(resp.getData());
+                }
+
+                methodCallback.onError(error);
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                String exp = "code: " + statusCode + " throwable: " + (throwable != null ? throwable.getLocalizedMessage() : "null") + " errorResponse: " + (errorResponse != null ? errorResponse.toString() : "null");
                 //ErrorHelper.errorHandle(new Exception(exp));
-                methodCallback.onError(exp);
+                Gson gson = new Gson();
+                Type errorType = new TypeToken<Response<HashMap<String, List<String>>>>() {}.getType();
+                Response<HashMap<String, List<String>>> resp = gson.fromJson(errorResponse.toString(), errorType);
+
+                String error = null;
+                if (resp.getData() != null ) {
+                    error = displayErrorMessage(resp.getData());
+                }
+
+                methodCallback.onError(error);
+
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                String exp = "code: " + statusCode + " throwable: " + (throwable != null ? throwable.getLocalizedMessage() : "null") + " responseString: " + responseString;
                 //ErrorHelper.errorHandle(new Exception(exp));
-                methodCallback.onError(exp);
+                methodCallback.onError(responseString);
             }
         };
+    }
+
+    private String displayErrorMessage(HashMap<String, List<String>> data) {
+
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry< String, List<String>> entry: data.entrySet()) {
+            for (String errorString : entry.getValue()) {
+                builder.append(errorString);
+                builder.append("\n");
+            }
+        }
+
+        String result = builder.toString();
+        if(result.length() > 1) {
+            result = result.substring(0, result.length()-1);
+        }
+
+        return result;
     }
 
     private String getAbsoluteUrl(String relativeUrl) {

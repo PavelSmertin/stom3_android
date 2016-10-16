@@ -121,11 +121,12 @@ public class User {
         RestClient.getInstance().post("uuid_connect", params, type, responseHandler);
     }
 
-    public static void subscribeCategory(String categoryId,  final ResponseCallback<Response> responseHandler) {
+    public static void subscribeCategory(String androidId, String categoryId,  final ResponseCallback responseHandler) {
         InitialRequestParams params = new InitialRequestParams();
         Type type = new TypeToken<Response>() {}.getType();
 
         params.add("category_id", categoryId);
+        params.add("device_id", androidId);
 
         RestClient.getInstance().setHeaders(PreferencesHelper.getInstance().getLogin(), PreferencesHelper.getInstance().getAuthToken());
         RestClient.getInstance().post("category_subscribe", params, type, responseHandler);

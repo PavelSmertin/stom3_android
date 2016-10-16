@@ -25,9 +25,9 @@ public class SplashActivity extends BaseActivity {
 
 
         // Save GCM token
-        if(PreferencesHelper.getInstance().getGcmToken() == null) {
+        //if(PreferencesHelper.getInstance().getGcmToken() == null) {
             startService(new Intent(SplashActivity.this, RegistrationIntentService.class));
-        }
+        //}
 
         ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         worker.schedule(new Runnable() {

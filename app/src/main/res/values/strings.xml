@@ -2,9 +2,6 @@
     <string name="app_name">Stom3</string>
 
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
 
     <string name="action_auth">Auth</string>
 
@@ -50,5 +47,8 @@
     <string name="permission_explain_call_phone">Для совершения вызова в поддержку, нам необходимо разрешение.</string>
     <string name="permission_explain_denied_call_phone">Для совершения вызова в поддержку, нам необходимо разрешение.</string>
 
+    <string name="error_subscribe_error">Ошибка при подписке</string>
+
+    <string name="subscribtions_successfully_added">Позиция добавлена в уведомления</string>
 
 </resources>
